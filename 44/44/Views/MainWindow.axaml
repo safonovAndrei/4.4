@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:_44.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="_44.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="_44">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid RowDefinitions = "auto, *"
+        ColumnDefinitions = "*, auto,*">
+    <!-- Верхняя строчка -->
+        <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="3">
+            <DockPanel Grid.ColumnSpan="3">
+                <TextBlock Margin = "5 0 0 10">Home</TextBlock>
+                <TextBlock Margin = "5 0 0 0">About</TextBlock>
+                <TextBlock Margin = "5 0 0 0">Blog's Main Topic 1</TextBlock>
+                <TextBlock Margin = "5 0 0 0">Blog's Main Topic 2</TextBlock>
+                <TextBlock Margin = "5 0 0 0">Blog's Main Topic 3</TextBlock>
+                <TextBlock Margin = "5 0 0 0">Associated blogs</TextBlock>
+                <TextBlock Margin="0 0 30 0" DockPanel.Dock="Right" TextAlignment="Right">RSS</TextBlock>
+            </DockPanel>
+        </Border>
+        <!-- Левый центр -->
+        <StackPanel Grid.Row = "1" Grid.Column = "0" Margin="0 20 0 0" Orientation = "Vertical" Grid.ColumnSpan="2">
+            <TextBlock Margin = "5 0 0 0 ">Article 1</TextBlock>
+            <TextBlock TextWrapping = "Wrap" Margin = "5 15 0 0" Text = "{Binding }"></TextBlock>
+    </Grid>
+</Window>
