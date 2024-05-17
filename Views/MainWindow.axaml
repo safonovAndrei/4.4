@@ -1,0 +1,68 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:infrastructure="using:BlogMVVMThree.Infrastructure"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BlogMVVMThree.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="900"
+        Height = "900"
+        Width = "900"
+        x:Class="BlogMVVMThree.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="BlogMVVMThree">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Grid RowDefinitions = "auto, *"
+        ColumnDefinitions = "*, auto,*">
+    <Border BorderThickness="200" Grid.Row = "1" Grid.Column = "1"/>
+<!-- Верхняя строчка -->
+      <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="3">
+          <DockPanel Grid.ColumnSpan="3">
+              <TextBlock Margin = "5 0 0 0" VerticalAlignment="Center">Home</TextBlock>
+              <TextBlock Margin = "5 0 0 0" VerticalAlignment="Center">About</TextBlock>
+              <TextBlock Margin = "5 0 0 0" VerticalAlignment="Center">Blog's Main Topic 1</TextBlock>
+              <TextBlock Margin = "5 0 0 0" VerticalAlignment="Center">Blog's Main Topic 2</TextBlock>
+              <TextBlock Margin = "5 0 0 0" VerticalAlignment="Center">Blog's Main Topic 3</TextBlock>
+              <TextBlock Margin = "5 0 0 0" VerticalAlignment="Center">Associated blogs</TextBlock>
+              <TextBlock Margin="0 0 30 0"  VerticalAlignment="Center" DockPanel.Dock="Right" TextAlignment="Right">RSS</TextBlock>
+          </DockPanel>
+      </Border>
+      <!--Записи в блоге (Слева)-->
+      <ListBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding BlogEntities}">
+         <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Margin="0 20 0 0" Orientation = "Vertical">
+              <TextBlock TextWrapping = "Wrap" Margin = "5 0 0 0 " Text ="{Binding Article}"></TextBlock>
+              <TextBlock TextWrapping = "Wrap" Margin = "5 15 0 0" Text ="{Binding Text}"></TextBlock>
+              <Image HorizontalAlignment="Center" Source ="{Binding ImagePath, Converter={x:Static infrastructure:BitmapValueConverter.Instance}}" Width="550" Height="200"/>
+              <ListBox Margin = "5 0 0 0" ItemsSource="{Binding Tags}">
+                  <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <VirtualizingStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                  </ListBox.ItemsPanel>  
+              </ListBox>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>       
+      </ListBox>
+
+      <!--Новости (Справа)-->
+      <ListBox Grid.Column="2" Grid.Row="1"
+               ItemsSource="{Binding NewsEntities}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation = "Vertical">
+              <TextBlock TextWrapping = "Wrap" Text ="{Binding Text}"></TextBlock>
+              <TextBlock Margin="0 10 0 0" TextWrapping = "Wrap" Text ="{Binding PublishDate}"></TextBlock>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+  
+    </Grid>
+</Window>
